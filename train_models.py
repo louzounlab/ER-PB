@@ -19,7 +19,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
 import time
 
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 
 # A method for deleting given columns safely
