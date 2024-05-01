@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+
+    .glow-button {
+        background-color: #3498db; /* Default background color */
+        color: #ffffff; /* Default text color */
+        padding: 15px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .glow-button:hover {
+        background-color: #2980b9; /* Hover background color */
+    }
+
+    .glow-button.selected {
+        background-color: plum; /* Selected background color */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a box shadow when selected */
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<h4 style="color: red; text-align: center;">{{ error }}</h4>
+<br>
+<div class="text-center">
+    <h1>ER PB</h1>
+</div>
+<div class="container text-center">
+    <br>
+    <h4>Please fill the following details:</h4>
+    <br>
+    <br>
+    <form action="/process_form" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col">
+                <label for="gest_age">Gestational age at admission</label>
+                <br>
+                <input type="number" id="gest_age" name="gest_age">
+            </div>
+            <div class="col">
+                <label for="parity">Parity</label>
+                <br>
+                <input type="number" id="parity" name="parity">
+            </div>
+            <div class="col">
+                <label for="ges_hype_dis">Gestational hypertensive disorders</label>
+                <br>
+                <select id="ges_hype_dis" name="ges_hype_dis">
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="max_pulse">Maximal pulse at admission</label>
+                <br>
+                <input type="number" id="max_pulse" name="max_pulse">
+            </div>
+            <div class="col">
+                <label for="prev_hos">Previous hospitalizations during pregnancy</label>
+                <br>
+                <select id="prev_hos" name="prev_hos">
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="pprom">Premature preterm rupture of membranes</label>
+                <br>
+                <select id="pprom" name="pprom">
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+            <label for="cervical_dynamics">Cervical dynamics</label>
+                <br>
+                <select id="cervical_dynamics" name="cervical_dynamics">
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="amniotic_fluid_index">Amniotic Fluid Index at admission</label>
+                <br>
+                <input type="number" id="amniotic_fluid_index" name="amniotic_fluid_index">
+            </div>
+            <div class="col">
+                <label for="cervical_dilation">Cervical dilation</label>
+                <br>
+                <input type="number" id="cervical_dilation" name="cervical_dilation">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <label for="hemoglobin">Hemoglobin at admission</label>
+                <br>
+                <input type="number" id="hemoglobin" name="hemoglobin">
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <button type="submit">Submit</button>
+        <br>
+        <br>
+        <br>
+    </form>
+</div>
+{% endblock %}
