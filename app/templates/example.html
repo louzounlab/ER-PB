@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<link rel="stylesheet" href="/static/index.css">
-<style>
-    .main-div {
-        margin: auto;
-        width: 80%;
-    }
-</style>
-{% endblock %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8MJKC3L7C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z8MJKC3L7C');
+</script>
 
 {% block content %}
-<div class="page-top">
-    <h1>Example</h1>
-</div>
-<br>
-<br>
-<div class="container">
-
-
-</div>
-
+<section class="content">
+    <br>
+  <header>
+      <div class="big_text">
+      <p>Example input file -
+          <button class="btn download-button">
+            <a class="download-link" href="/download-example-files">download</a>
+          </button>
+      </p>
+      </div>
+  </header>
+</section>
 {% endblock %}
-

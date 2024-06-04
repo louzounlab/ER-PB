@@ -1,23 +1,44 @@
-{% extends 'base.html' %}
-
+{% extends "layout.html" %}
+{% block title %}PEPRED{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="/static/index.css">
-<style>
-    .main-div {
-        margin: auto;
-        width: 80%;
-    }
-</style>
+    {{super()}}
 {% endblock %}
+{% block body %}
+    {{super()}}
+    <br>
+    <h1 style="padding: 0.5%;text-align:left;font-size: 35px;color: #6E7376;font-weight: bold">About</h1>
+<div style="padding: 0.7%; margin-left: 1%; text-align: left; font-weight: bold; font-size: 20px">
+    <p>
+    This website is developed by Roy Cirkin in the Louzoun lab.<br>
+    The prediction is based on the code: 'PEPRED' by Zuriya Ansbacher.<br>
+    </p>
+    <br>
+    <table style="text-align: center; font-weight: bold; font-size: 20px">
+        <tr>
+            <td>
+            <a href="http://yolo.math.biu.ac.il/" target="_blank">Link for the lab website</a>
+            </td>
+            <td>
+                <a href="https://github.com/louzounlab" target="_blank">Link for the lab GitHub</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Scan the lab website's QR-Code:
+            </td>
+             <td>
+                Pepred's QR-Code:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="../static/LabQR.png">
+            </td>
+            <td>
+                <img src="../static/barcode.gif">
+            </td>
+        </tr>
+    </table>
 
-{% block content %}
-<div class="page-top">
-    <h1>About</h1>
 </div>
-<br>
-<div class="container">
-
-
-</div>
-
 {% endblock %}
