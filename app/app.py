@@ -7,11 +7,7 @@ import time
 import pickle
 import shutil
 import pandas as pd
-from matplotlib import rcParams
 
-# Set the font
-rcParams['font.family'] = 'Times New Roman'
-rcParams['font.size'] = 25
 
 # create an instance of the Flask class, with the name of the running application and the paths for the static files and templates
 app = Flask(__name__, static_folder='static', template_folder="templates")
