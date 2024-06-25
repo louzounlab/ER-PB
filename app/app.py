@@ -77,7 +77,7 @@ def process_form():
 @app.route('/', methods=['GET'])
 @app.route('/Home', methods=['GET'])
 def home():
-    return render_template("index.html", active="Home")
+    return render_template("index.html", active="Home", risks=None)
 
 
 @app.route('/Example', methods=['GET'])
