@@ -42,36 +42,39 @@ def clean_old_files():
 
 @app.route('/process_form', methods=['POST', 'GET'])
 def process_form():
-    # Get the form data
-    data = request.form
+    try:
+        # Get the form data
+        data = request.form
 
-    # Get the median data dataframe
-    data_df = pd.read_csv(join("static", "initial_df.csv"))
+        # Get the median data dataframe
+        data_df = pd.read_csv(join("static", "initial_df.csv"))
 
-    # Fill the data from the form into the median data format
-    if data["gest_age"]:
-        data_df["Gestational age at admission"] = float(data["gest_age"])
-    if data['parity']:
-        data_df['Parity'] = float(data['parity'])
-    data_df["Gestational hypertensive disorders"] = int(data["ges_hype_dis"])
-    if data["max_pulse"]:
-        data_df["Maximal pulse at admission"] = float(data["max_pulse"])
-    data_df['Previous hospitalizations during pregnancy'] = int(data['prev_hos'])
-    data_df['Premature preterm rupture of membranes'] = int(data['pprom'])
-    data_df['Cervical dynamics'] = int(data['cervical_dynamics'])
-    if data['amniotic_fluid_index']:
-        data_df['Amniotic Fluid Index at admission'] = float(data['amniotic_fluid_index'])
-    if data['cervical_dilation']:
-        data_df['Cervical dilation'] = float(data['cervical_dilation'])
-    if data['hemoglobin']:
-        data_df['Hemoglobin at admission'] = float(data['hemoglobin'])
+        # Fill the data from the form into the median data format
+        if data["gest_age"]:
+            data_df["Gestational age at admission"] = float(data["gest_age"])
+        if data['parity']:
+            data_df['Parity'] = float(data['parity'])
+        data_df["Gestational hypertensive disorders"] = int(data["ges_hype_dis"])
+        if data["max_pulse"]:
+            data_df["Maximal pulse at admission"] = float(data["max_pulse"])
+        data_df['Previous hospitalizations during pregnancy'] = int(data['prev_hos'])
+        data_df['Premature preterm rupture of membranes'] = int(data['pprom'])
+        data_df['Cervical dynamics'] = int(data['cervical_dynamics'])
+        if data['amniotic_fluid_index']:
+            data_df['Amniotic Fluid Index at admission'] = float(data['amniotic_fluid_index'])
+        if data['cervical_dilation']:
+            data_df['Cervical dilation'] = float(data['cervical_dilation'])
+        if data['hemoglobin']:
+            data_df['Hemoglobin at admission'] = float(data['hemoglobin'])
 
-    # Predict the risk
-    risks = []
-    for model in loaded_models:
-        risks.append(model.predict_proba(data_df)[:, 1][0])
+        # Predict the risk
+        risks = []
+        for model in loaded_models:
+            risks.append(model.predict_proba(data_df)[:, 1][0])
 
-    return render_template("index.html", active="Home", risks=risks)
+        return render_template("index.html", active="Home", risks=risks)
+    except Exception as e:
+        return render_template("index.html", active="Home", risks=[], error=str(e))
 
 
 @app.route('/', methods=['GET'])

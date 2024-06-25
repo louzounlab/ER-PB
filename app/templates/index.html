@@ -30,6 +30,11 @@
 <h4 style="color: red; text-align: center;">{{ error }}</h4>
 <br>
 <div class="text-center">
+    {% if error %}
+        <h3>The following error occurred: {{ error }}</h3>
+        <br>
+        <br>
+    {% endif %}
     <h1>ER PB</h1>
 </div>
 <div class="container text-center">
