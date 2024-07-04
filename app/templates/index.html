@@ -66,11 +66,25 @@
             </select>
         </div>
         <br>
-        <div class="col">
-            <label for="gest_age">Gestational age at admission</label>
-            <br>
-            <input type="number" id="gest_age" name="gest_age">
+        <div class="row">
+            <div class="col">
+                <label>Gestational age at admission</label>
+                <br>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <div style="text-align: center;">
+                        <label for="gest_age_weeks">Weeks</label>
+                        <br>
+                        <input type="number" id="gest_age_weeks" name="gest_age_weeks" min="0">
+                    </div>
+                    <div style="text-align: center;">
+                        <label for="gest_age_days">Days-(0-6)</label>
+                        <br>
+                        <input type="number" id="gest_age_days" name="gest_age_days" min="0" max="6">
+                    </div>
+                </div>
+            </div>
         </div>
+
         <br>
         <div class="col">
             <label for="pprom">Premature preterm rupture of membranes</label>
@@ -103,7 +117,7 @@
         </div>
         <br>
         <div class="col">
-            <label for="amniotic_fluid_index">Amniotic Fluid Index at admission</label>
+            <label for="amniotic_fluid_index">Amniotic Fluid Index at admission (Mm)</label>
             <br>
             <input type="number" id="amniotic_fluid_index" name="amniotic_fluid_index">
         </div>

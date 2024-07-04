@@ -50,8 +50,8 @@ def process_form():
         data_df = pd.read_csv(join("static", "initial_df.csv"))
 
         # Fill the data from the form into the median data format
-        if data["gest_age"]:
-            data_df["Gestational age at admission"] = float(data["gest_age"])
+        if data["gest_age_weeks"] and data["gest_age_days"]:
+            data_df["Gestational age at admission"] = float(data["gest_age_weeks"])+float(data["gest_age_days"])/7
         if data['parity']:
             data_df['Parity'] = float(data['parity'])
         data_df["Gestational hypertensive disorders"] = int(data["ges_hype_dis"])
