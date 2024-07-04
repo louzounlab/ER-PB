@@ -71,6 +71,7 @@ def process_form():
         risks = []
         for model in loaded_models:
             risks.append(model.predict_proba(data_df)[:, 1][0])
+        risks = [str(round(float(risk*100), 2))+'%' for risk in risks]
 
         return render_template("index.html", active="Home", risks=risks)
     except Exception as e:
