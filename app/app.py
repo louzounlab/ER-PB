@@ -50,8 +50,11 @@ def process_form():
         data_df = pd.read_csv(join("static", "initial_df.csv"))
 
         # Fill the data from the form into the median data format
-        if data["gest_age_weeks"] and data["gest_age_days"]:
-            data_df["Gestational age at admission"] = float(data["gest_age_weeks"])+float(data["gest_age_days"])/7
+        if data["gest_age_weeks"]:
+            if data["gest_age_days"]:
+                data_df["Gestational age at admission"] = float(data["gest_age_weeks"])+float(data["gest_age_days"])/7
+            else:
+                data_df["Gestational age at admission"] = float(data["gest_age_weeks"])
         if data['parity']:
             data_df['Parity'] = float(data['parity'])
         data_df["Gestational hypertensive disorders"] = int(data["ges_hype_dis"])
@@ -71,9 +74,9 @@ def process_form():
         risks = []
         for model in loaded_models:
             risks.append(model.predict_proba(data_df)[:, 1][0])
-        risks = [str(round(float(risk*100), 2))+'%' for risk in risks]
+        output_risks = [str(round(float(risk*100), 2))+'%' for risk in risks]
 
-        return render_template("index.html", active="Home", risks=risks)
+        return render_template("index.html", active="Home", risks=output_risks)
     except Exception as e:
         return render_template("index.html", active="Home", risks=[], error=str(e))
 
