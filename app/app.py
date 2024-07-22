@@ -55,21 +55,46 @@ def process_form():
                 data_df["Gestational age at admission"] = float(data["gest_age_weeks"])*7+float(data["gest_age_days"])
             else:
                 data_df["Gestational age at admission"] = float(data["gest_age_weeks"])*7
+        else:
+            data_df["Gestational age at admission"] = 225.0
+
         if data['parity']:
             data_df['Parity'] = float(data['parity'])
+        else:
+            data_df['Parity'] = 1.0
+
         data_df["Gestational hypertensive disorders"] = int(data["ges_hype_dis"])
+
         if data["max_pulse"]:
             data_df["Maximal pulse at admission"] = float(data["max_pulse"])
+        else:
+            data_df["Maximal pulse at admission"] = 74.0
+
         data_df['Previous hospitalizations during pregnancy'] = int(data['prev_hos'])
         data_df['Premature preterm rupture of membranes'] = int(data['pprom'])
         data_df['Cervical dynamics'] = int(data['cervical_dynamics'])
+
         if data['amniotic_fluid_index']:
             data_df['Amniotic Fluid Index at admission'] = float(data['amniotic_fluid_index'])
+        else:
+            data_df['Amniotic Fluid Index at admission'] = 100.0
+
         if data['cervical_dilation']:
             data_df['Cervical dilation'] = float(data['cervical_dilation'])
+        else:
+            data_df['Cervical dilation'] = 1.0
+
         if data['hemoglobin']:
             data_df['Hemoglobin at admission'] = float(data['hemoglobin'])
+        else:
+            data_df['Hemoglobin at admission'] = 11.8
 
+        with open(f"static/label_statistics.csv") as mean_std_f:
+            for line in mean_std_f:
+                if "mean,std" in line:
+                    continue
+                label,_,mean,std,_ = line.strip().split(",")
+                data_df[label] = (data_df[label] - float(mean)) / float(std)
         # Predict the risk
         risks = []
         for model in loaded_models:
