@@ -22,7 +22,7 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 app.config["SECRET_KEY"] = secrets.token_hex()
 
 # Load the models once
-models_names = ["xgboost_2.pkl", "xgboost_7.pkl", "xgboost_34.pkl"]
+models_names = ["model_xgboost_2.pkl", "model_xgboost_7.pkl", "model_xgboost_34.pkl"]
 loaded_models = []
 for model_name in models_names:
     with open(join("models", model_name), "rb") as file:
