@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/index.css">
+    <style>
+        .main-div {
+            margin: auto;
+            width: 80%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container page-top">
+        <h1>Features Glossary</h1>
+    </div>
+    <br>
+    <div class="container">
+        <p>Below is a glossary of important terms used in the prediction model:</p>
+        <ul>
+            <li>
+                <b>Preterm birth (PTB):</b> A delivery occurring before 37 weeks gestation.
+            </li>
+            <li>
+                <b>Spontaneous preterm birth (sPTB):</b> A preterm birth that is not initiated by labor induction.
+            </li>
+            <li>
+                <b>Preterm labor:</b> A labor that begins before 37 weeks gestation. Might lead to preterm birth. In our study, suspected preterm labor at admission was defined as one or more of the following:
+                <ul>
+                    <li>Premature contractions with cervical length shortening (to &lt; 20 mm, or to &lt; 25 mm in patients with a history of sPTB).</li>
+                    <li>Cervical dilatation.</li>
+                    <li>Asymptomatic cervical shortening or dilatation.</li>
+                    <li>Premature preterm rupture of membranes (pPROM).</li>
+                    <li>Vaginal bleeding with contractions implying possible placental abruption.</li>
+                </ul>
+            </li>
+            <li>
+                <b>Parity:</b> The number of times a patient has given birth at &gt;20 weeks gestation (including livebirths and stillbirths).
+            </li>
+            <li>
+                <b>Previous hospitalizations during pregnancy:</b> One or more previous hospitalizations during the current pregnancy.
+            </li>
+            <li>
+                <b>Gestational age at admission:</b> Time elapsed between the first day of the last menstrual period to the day of admission, measured in weeks and days (0/7 to 6/7).
+            </li>
+            <li>
+                <b>Premature preterm rupture of membranes (pPROM):</b> A rupture of the amniotic sac membranes during pregnancy, occurring before 37 weeks’ gestation.
+            </li>
+            <li>
+                <b>Cervical shortening:</b> Cervical length measurement of &lt;20 mm, or &lt;25 mm in women with a history of spontaneous preterm birth, using transvaginal ultrasound at admission.
+            </li>
+            <li>
+                <b>Cervical dilation (Cm):</b> Cervical opening at admission, measured by a pelvic manual examination.
+            </li>
+            <li>
+                <b>Maximal pulse at admission:</b> Maternal maximal pulse at admission, measured by beats per minute.
+            </li>
+            <li>
+                <b>Amniotic Fluid Index at admission:</b> A quantitative estimate of amniotic fluid seen on ultrasonography of a pregnant uterus, using a four-quadrant technique. The deepest, unobstructed, vertical length of each pocket of fluid is measured in each quadrant and then added up to the others. Score is expressed in millimeters (mm).
+            </li>
+            <li>
+                <b>Hemoglobin at admission:</b> Maternal serum hemoglobin at admission (measured by g/dL).
+            </li>
+            <li>
+                <b>Living Children:</b> The number of patient's living children.
+            </li>
+            <li>
+                <b>Number of fetuses:</b> The number of fetuses during the current pregnancy (a single fetus, twins, etc.).
+            </li>
+            <li>
+                <b>Estimated Fetal Weight (g):</b> Fetal weight estimation at admission (measured in grams).
+            </li>
+            <li>
+                <b>Glucose Challenge Test (GCT) score (mg/dL):</b> Serum glucose during one-hour oral glucose challenge test (GCT) performed between 24 and 28 weeks of pregnancy, measured by mg/dL.
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}
