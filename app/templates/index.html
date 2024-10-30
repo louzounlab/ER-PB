@@ -2,6 +2,10 @@
 
 {% block head %}
 <style>
+    body {
+        background-color: #f0f0f0; /* Light gray background color */
+        color: #333333; /* Dark gray text color */
+    }
 
     .glow-button {
         background-color: #3498db; /* Default background color */
@@ -23,7 +27,6 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a box shadow when selected */
     }
 </style>
-
 {% endblock %}
 
 {% block content %}
@@ -35,7 +38,7 @@
         <br>
         <br>
     {% endif %}
-    <h1>Online calculator for prediction of imminent preterm birth at the time of admission to the ER</h1>
+    <h1>Online calculator for prediction of imminent preterm birth among patients presenting with suspected preterm labor in the obstetric emergency room</h1>
 </div>
 <div class="container text-center">
     <br>
@@ -127,6 +130,19 @@
             <br>
             <input type="number" id="hemoglobin" name="hemoglobin" step="any">
         </div>
+        <br>
+        <div class="col">
+            <label for="living_children">Living Children</label>
+            <br>
+            <input type="number" id="living_children" name="living_children">
+        </div>
+        <br>
+        <div class="col">
+            <label for="glucose">Glucose Challenge Test result</label>
+            <br>
+            <input type="number" id="glucose" name="glucose">
+        </div>
+
         <br>
         <br>
 

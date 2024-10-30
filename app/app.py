@@ -22,7 +22,7 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(hours=1)
 app.config["SECRET_KEY"] = secrets.token_hex()
 
 # Load the models once
-models_names = ["model_xgboost_2.pkl", "model_xgboost_7.pkl", "model_xgboost_34.pkl"]
+models_names = ["model_xgboost_day2.pkl", "model_xgboost_day7.pkl", "model_xgboost_day34.pkl"]
 loaded_models = []
 for model_name in models_names:
     with open(join("models", model_name), "rb") as file:
@@ -39,7 +39,47 @@ def clean_old_files():
                 shutil.rmtree(join("static", file))
                 print("Deleted:", file)
 
+def divide_array(arr, num_subarrays):
+    #divides array to a number of sub arrays
+    n = len(arr)
+    subarray_size = n // num_subarrays
+    remainder = n % num_subarrays
 
+    subarrays = []
+    start_index = 0
+
+    for i in range(num_subarrays):
+        end_index = start_index + subarray_size + (1 if i < remainder else 0)
+        subarrays.append(arr[start_index:end_index])
+        start_index = end_index
+
+    return subarrays
+
+
+def calculate_risk(predict_prob,day):
+    list_pred = []
+    list_pred_real = []
+    with open(f"predicted_results/y_xgboost_data_{day}.csv") as pred_file:
+        for line in pred_file:
+            line = line.strip().split(',')
+            list_pred.append(float(line[1]))
+            list_pred_real.append([float(line[0]), float(line[1])])
+    # sort list_pred_real by pred
+    sorted_list_pred_real = sorted(list_pred_real, key=lambda x: x[1])
+    # sorted_list_pred = sorted(list_pred)
+
+    # percentile = find_percentile(predict_prob, np.array(sorted_list_pred))
+    # print("percentile", percentile)
+    sorted_list_pred_real[0][1] = 0
+    sorted_list_pred_real[-1][1] = 1.1
+    subarrays = 20
+    bins_20 = divide_array(sorted_list_pred_real, subarrays)
+    for bin in bins_20:
+        print(len(bin))
+        if predict_prob<bin[-1][1] :
+            vals = [val[0] for val in bin]
+            risk = sum(vals) / len(vals)
+            return risk
 @app.route('/process_form', methods=['POST', 'GET'])
 def process_form():
     try:
@@ -62,8 +102,6 @@ def process_form():
             data_df['Parity'] = float(data['parity'])
         else:
             data_df['Parity'] = 1.0
-
-        data_df["Gestational hypertensive disorders"] = int(data["ges_hype_dis"])
 
         if data["max_pulse"]:
             data_df["Maximal pulse at admission"] = float(data["max_pulse"])
@@ -89,16 +127,33 @@ def process_form():
         else:
             data_df['Hemoglobin at admission'] = 11.8
 
+        if data['living_children']:
+            data_df['Living Children'] = float(data['living_children'])
+        else:
+            data_df['Living Children'] = 1.0
+
+        if data['glucose']:
+            data_df['Glucose Challenge Test result'] = float(data['glucose'])
+        else:
+            data_df['Glucose Challenge Test result'] = 116.0
+
+        print(data_df)
         with open(f"static/label_statistics.csv") as mean_std_f:
             for line in mean_std_f:
                 if "mean,std" in line:
                     continue
-                label,_,mean,std,_ = line.strip().split(",")
+                label,_,mean,std = line.strip().split(",")
                 data_df[label] = (data_df[label] - float(mean)) / float(std)
         # Predict the risk
+        print(data_df)
         risks = []
-        for model in loaded_models:
-            risks.append(model.predict_proba(data_df)[:, 1][0])
+        days = [2,7,34]
+        for i,model in enumerate(loaded_models):
+            risk = model.predict_proba(data_df)[:, 1][0]
+            final_risk = calculate_risk(risk,days[i])
+            print(f"predict prob: {risk}, risk: {final_risk},for day:{days[i]}")
+            risks.append(final_risk)
+
         output_risks = [str(round(float(risk*100), 2))+'%' for risk in risks]
 
         return render_template("index.html", active="Home", risks=output_risks)
@@ -120,6 +175,10 @@ def example():
 @app.route('/About', methods=['GET'])
 def about():
     return render_template("about.html", active="About")
+
+@app.route('/Glossary', methods=['GET'])
+def glossary():
+    return render_template("glossary.html", active="Glossary")
 
 
 if __name__ == "__main__":
