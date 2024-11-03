@@ -75,7 +75,6 @@ def calculate_risk(predict_prob,day):
     subarrays = 20
     bins_20 = divide_array(sorted_list_pred_real, subarrays)
     for bin in bins_20:
-        print(len(bin))
         if predict_prob<bin[-1][1] :
             vals = [val[0] for val in bin]
             risk = sum(vals) / len(vals)
@@ -137,7 +136,6 @@ def process_form():
         else:
             data_df['Glucose Challenge Test result'] = 116.0
 
-        print(data_df)
         with open(f"static/label_statistics.csv") as mean_std_f:
             for line in mean_std_f:
                 if "mean,std" in line:
@@ -145,13 +143,11 @@ def process_form():
                 label,_,mean,std = line.strip().split(",")
                 data_df[label] = (data_df[label] - float(mean)) / float(std)
         # Predict the risk
-        print(data_df)
         risks = []
         days = [2,7,34]
         for i,model in enumerate(loaded_models):
             risk = model.predict_proba(data_df)[:, 1][0]
             final_risk = calculate_risk(risk,days[i])
-            print(f"predict prob: {risk}, risk: {final_risk},for day:{days[i]}")
             risks.append(final_risk)
 
         output_risks = [str(round(float(risk*100), 2))+'%' for risk in risks]
