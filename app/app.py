@@ -84,10 +84,8 @@ def process_form():
     try:
         # Get the form data
         data = request.form
-
         # Get the median data dataframe
         data_df = pd.read_csv(join("static", "initial_df.csv"))
-
         # Fill the data from the form into the median data format
         if data["gest_age_weeks"]:
             if data["gest_age_days"]:
@@ -96,6 +94,11 @@ def process_form():
                 data_df["Gestational age at admission"] = float(data["gest_age_weeks"])*7
         else:
             data_df["Gestational age at admission"] = 225.0
+
+        if data["estimated_weight"]:
+            data_df["Estimated fetal weight"] = float(data["estimated_weight"])
+        else:
+            data_df["Estimated fetal weight"] = 2500.0
 
         if data['parity']:
             data_df['Parity'] = float(data['parity'])
